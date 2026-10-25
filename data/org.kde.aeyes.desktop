@@ -1,0 +1,29 @@
+[Desktop Entry]
+Type=Application
+Name=aeyes
+GenericName=Screen Assistant
+Comment=Ask an AI about anything on your screen
+Exec=aeyes
+Icon=org.kde.aeyes
+Terminal=false
+Categories=Qt;KDE;Utility;
+StartupNotify=false
+DBusActivatable=false
+X-DBUS-ServiceName=org.kde.aeyes
+Actions=Capture;History;Settings;
+
+[Desktop Action Capture]
+Name=Capture and Ask
+Icon=camera-photo-symbolic
+Exec=aeyes --capture
+X-KDE-Shortcuts=Meta+Shift+A
+
+[Desktop Action History]
+Name=Browse History
+Icon=view-history
+Exec=aeyes --history
+
+[Desktop Action Settings]
+Name=Settings
+Icon=configure
+Exec=aeyes --settings

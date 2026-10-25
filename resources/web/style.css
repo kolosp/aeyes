@@ -1,0 +1,26 @@
+:root { --bg:#fff; --fg:#232627; --muted:#7f8c8d; --accent:#3daee9; --border:#d0d0d0; --alt:#f0f0f0; }
+html { color-scheme: light; background: var(--bg); }
+html.dark { color-scheme: dark; } /* native scrollbars, form controls, selection follow the theme */
+html, body { margin:0; background:var(--bg); color:var(--fg); }
+* { scrollbar-color: var(--border) transparent; }
+body { font: 14px/1.55 "Noto Sans", system-ui, sans-serif; padding: 8px 18px 24px; overflow-wrap: anywhere; }
+a { color: var(--accent); }
+.msg { margin: 14px 0; }
+.msg.user { display:flex; flex-direction:column; align-items:flex-end; }
+.msg.user .bubble { background: var(--alt); border:1px solid var(--border); border-radius: 10px; padding: 6px 12px; max-width: 85%; }
+.msg.user .bubble > :first-child { margin-top:0 } .msg.user .bubble > :last-child { margin-bottom:0 }
+.thumbs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:6px; justify-content:flex-end; }
+.thumbs img { max-height:140px; max-width:260px; border-radius:6px; border:1px solid var(--border); }
+.meta { color:var(--muted); font-size:11px; margin-bottom:2px; display:flex; gap:10px; align-items:center; }
+.meta a { color:var(--accent); text-decoration:none; }
+.meta a:hover { text-decoration:underline; }
+.error { color:#da4453; border-left:3px solid #da4453; padding-left:8px; margin-top:6px; }
+.spinner { display:inline-block; width:10px; height:10px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg) } }
+pre { background:var(--alt); border:1px solid var(--border); border-radius:6px; padding:8px 10px; overflow-x:auto; }
+code { font-family: "Hack", "Noto Sans Mono", monospace; font-size: 12.5px; }
+:not(pre) > code { background:var(--alt); padding:1px 4px; border-radius:4px; }
+table { border-collapse:collapse; } th, td { border:1px solid var(--border); padding:4px 10px; } th { background:var(--alt); }
+blockquote { margin:8px 0; padding-left:12px; border-left:3px solid var(--border); color:var(--muted); }
+.katex-display { overflow-x:auto; overflow-y:hidden; padding:2px 0; }
+h1,h2,h3 { line-height:1.25; } h1 { font-size:1.5em } h2 { font-size:1.3em } h3 { font-size:1.12em }

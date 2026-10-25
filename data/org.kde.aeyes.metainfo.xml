@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.kde.aeyes</id>
+  <name>aeyes</name>
+  <summary>Ask an AI about anything on your screen</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <description>
+    <p>Press a shortcut, select a region of the screen with Spectacle, and get an explanation from a vision-capable AI model, rendered as Markdown with LaTeX. Sessions are saved and can be continued later.</p>
+  </description>
+  <developer id="org.kde.aeyes"><name>aeyes contributors</name></developer>
+  <content_rating type="oars-1.1"/>
+  <launchable type="desktop-id">org.kde.aeyes.desktop</launchable>
+</component>
