@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    # Plasma 6 / KF6 / Qt 6 are only current on rolling distros, so build where the app is meant to run.
+    container: archlinux:latest
+    steps:
+      - name: Install dependencies
+        run: |
+          pacman -Syu --noconfirm --needed base-devel git cmake ninja extra-cmake-modules \
+            qt6-base qt6-declarative qt6-webengine qt6-svg qt6-tools kirigami qqc2-desktop-style \
+            ki18n kconfig kcoreaddons kdbusaddons kcrash qtkeychain-qt6 nodejs appstream
+
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Install to a staging dir (the AppStream test validates installed files)
+        run: cmake --install build --prefix /tmp/stage
+
+      - name: Test
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: ctest --test-dir build --output-on-failure
+
+  pkgbuild:
+    # Makes sure the AUR recipe still builds from a clean checkout of this commit.
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - name: Install tools
+        run: pacman -Syu --noconfirm --needed base-devel git sudo
+
+      - uses: actions/checkout@v4
+
+      - name: makepkg
+        run: |
+          useradd -m builder
+          echo 'builder ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/builder
+          # Build this commit: place the checkout where makepkg would have cloned it.
+          install -d -o builder /home/builder/pkg/src
+          cp PKGBUILD /home/builder/pkg/
+          git config --system --add safe.directory '*'
+          git clone --no-hardlinks "$GITHUB_WORKSPACE" /home/builder/pkg/src/aeyes
+          chown -R builder /home/builder/pkg
+          sed -i 's|^source=.*|source=()|; s|^sha256sums=.*|sha256sums=()|' /home/builder/pkg/PKGBUILD
+          cd /home/builder/pkg
+          sudo -u builder env QT_QPA_PLATFORM=offscreen makepkg -s --noconfirm

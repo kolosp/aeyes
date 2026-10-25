@@ -85,9 +85,5 @@ endforeach()
 
 enable_testing()
 add_subdirectory(tests)
-# TODO: re-enable once the metainfo has a real <url type="homepage">.
-if(TEST appstreamtest)
-    set_tests_properties(appstreamtest PROPERTIES DISABLED TRUE)
-endif()
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
